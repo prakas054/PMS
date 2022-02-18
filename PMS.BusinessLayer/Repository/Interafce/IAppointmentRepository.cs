@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace PMS.WebApi.Services.Interface
+namespace PMS.BusinessLayer.Repository.Interafce
 {
-    public interface IAppointmentService
+    public interface IAppointmentRepository
     {
         List<Appointment> GetAllAppointment();
-        //Appointment GetAppointmentById(int id);
         Appointment AddAppointment(Appointment appointment);
-        //Appointment UpdateAppointment(Appointment appointment);
-        //bool DeleteAppointment(int id);
     }
 }

@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PMS.BusinessLayer.Business;
-using PMS.BusinessLayer.Business.Interface;
+using PMS.BusinessLayer.Repository.Classes;
+using PMS.BusinessLayer.Repository.Interafce;
+using PMS.BusinessLayer.UnitOfWork.Class;
+using PMS.BusinessLayer.UnitOfWork.Interface;
 using PMS.DAL;
-using PMS.WebApi.Services;
-using PMS.WebApi.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +34,15 @@ namespace PMS.WebApi
 
             services.AddControllers();
 
-            services.AddDbContext<PMSContext>(opt =>
-            opt.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MyPMS")
-                .EnableSensitiveDataLogging());
+            services.AddDbContext<PMSContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("APIConnection"),
+                        b => b.MigrationsAssembly(typeof(PMSContext).Assembly.FullName)));
 
-            services.AddTransient<IAppointmentBusiness, AppointmentBusiness>();
-            services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IAllergyRepository, AllergyRepository>();
+            services.AddTransient<IRegistrationRepository, RegistrationRepository>();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(c =>
             {

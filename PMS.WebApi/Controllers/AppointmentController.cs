@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PMS.BusinessLayer.UnitOfWork.Interface;
 using PMS.DAL.Entity;
-using PMS.WebApi.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,31 +13,31 @@ namespace PMS.WebApi.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private readonly IAppointmentService _appointmentService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AppointmentController(IAppointmentService appointmentService)
+        public AppointmentController(IUnitOfWork unitOfWork)
         {
-            _appointmentService = appointmentService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            try
-            {
-                List<Appointment> appointments = _appointmentService.GetAllAppointment();
+            //try
+            //{
+            //    List<Appointment> appointments = _unitOfWork.Appointment
 
-                if (!appointments.Any())
-                {
-                    return StatusCode(404, "Not found");
-                }
+            //    if (!appointments.Any())
+            //    {
+            //        return StatusCode(404, "Not found");
+            //    }
 
-                return Ok(appointments);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+                return Ok();
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
 
         //[HttpGet("{id}")]
@@ -63,21 +63,21 @@ namespace PMS.WebApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Appointment appointment)
         {
-            try
-            {
-                var result = _appointmentService.AddAppointment(appointment);
+            //try
+            //{
+            //    var result = _appointmentService.AddAppointment(appointment);
 
-                //if (addedRegistration == null)
-                //{
-                //    return StatusCode(400);
-                //}
+            //    //if (addedRegistration == null)
+            //    //{
+            //    //    return StatusCode(400);
+            //    //}
 
                 return StatusCode(201);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, ex.Message);
+            //}
         }
 
         //[HttpPut("{id}")]
