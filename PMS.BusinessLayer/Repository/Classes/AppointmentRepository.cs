@@ -1,4 +1,4 @@
-﻿using PMS.BusinessLayer.Business.Interface;
+﻿using PMS.BusinessLayer.Repository.Interafce;
 using PMS.DAL;
 using PMS.DAL.Entity;
 using System;
@@ -7,15 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMS.BusinessLayer.Business
+namespace PMS.BusinessLayer.Repository.Classes
 {
-    public class AppointmentBusiness : IAppointmentBusiness
+    public class AppointmentRepository : GenericRepository<Appointment>, IAppointmentRepository
     {
-        private readonly PMSContext _context;
-
-        public AppointmentBusiness(PMSContext pMSContext)
+        public AppointmentRepository(PMSContext context) : base(context)
         {
-            _context = pMSContext;
         }
 
         public List<Appointment> GetAllAppointment()
