@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMS.BusinessLayer.Repository.Interafce
+namespace PMS.DAL.Repository.Intreface
 {
     public interface IGenericRepository<T> where T :class
     {

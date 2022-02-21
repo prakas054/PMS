@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PMS.BusinessLayer.UnitOfWork.Interface;
+using PMS.DAL.UnitOfWork.Interface;
 using PMS.DAL.Entity;
 using System;
 using System.Collections.Generic;

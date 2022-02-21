@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PMS.BusinessLayer\PMS.BusinessLayer.csproj" />
     <ProjectReference Include="..\PMS.DAL\PMS.DAL.csproj" />
   </ItemGroup>

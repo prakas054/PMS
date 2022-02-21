@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PMS.BusinessLayer.UnitOfWork.Interface;
+using PMS.BusinessLayer.DTO;
+using PMS.DAL.UnitOfWork.Interface;
 using PMS.DAL.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PMS.BusinessLayer.Business.Interface;
 
 namespace PMS.WebApi.Controllers
 {
@@ -13,31 +15,31 @@ namespace PMS.WebApi.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAppointmentBusiness _appointmentBusiness;
 
-        public AppointmentController(IUnitOfWork unitOfWork)
+        public AppointmentController(IAppointmentBusiness appointmentBusiness)
         {
-            _unitOfWork = unitOfWork;
+            _appointmentBusiness = appointmentBusiness;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            //try
-            //{
-            //    List<Appointment> appointments = _unitOfWork.Appointment
+            try
+            {
+                List<AppointmentDTO> appointmentDTOs = _appointmentBusiness.GetAllAppointment().ToList();
 
-            //    if (!appointments.Any())
-            //    {
-            //        return StatusCode(404, "Not found");
-            //    }
+                if (!appointmentDTOs.Any())
+                {
+                    return StatusCode(404, "Not found");
+                }
 
-                return Ok();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, ex.Message);
-            //}
+                return Ok(appointmentDTOs);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         //[HttpGet("{id}")]
@@ -61,23 +63,22 @@ namespace PMS.WebApi.Controllers
         //}
 
         [HttpPost]
-        public IActionResult Post([FromBody] Appointment appointment)
+        public IActionResult Post([FromBody] AppointmentDTO appointmentDTO)
         {
-            //try
-            //{
-            //    var result = _appointmentService.AddAppointment(appointment);
+            try
+            {
+                if (appointmentDTO == null)
+                {
+                    return StatusCode(400);
+                }
 
-            //    //if (addedRegistration == null)
-            //    //{
-            //    //    return StatusCode(400);
-            //    //}
-
+                _appointmentBusiness.AddAppointment(appointmentDTO);
                 return StatusCode(201);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         //[HttpPut("{id}")]
