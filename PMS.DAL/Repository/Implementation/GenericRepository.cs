@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PMS.BusinessLayer.Repository.Interafce;
 using PMS.DAL;
+using PMS.DAL.Repository.Intreface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PMS.BusinessLayer.Repository.Classes
+namespace PMS.DAL.Repository.Implementation
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

@@ -7,15 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PMS.BusinessLayer.Repository.Classes;
-using PMS.BusinessLayer.Repository.Interafce;
-using PMS.BusinessLayer.UnitOfWork.Class;
-using PMS.BusinessLayer.UnitOfWork.Interface;
+using PMS.DAL.Repository.Implementation;
+using PMS.DAL.Repository.Intreface;
+using PMS.DAL.UnitOfWork.Implementation;
+using PMS.DAL.UnitOfWork.Interface;
 using PMS.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PMS.BusinessLayer.Business.Interface;
+using PMS.BusinessLayer.Business.Implementation;
 
 namespace PMS.WebApi
 {
@@ -37,6 +39,8 @@ namespace PMS.WebApi
             services.AddDbContext<PMSContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("APIConnection"),
                         b => b.MigrationsAssembly(typeof(PMSContext).Assembly.FullName)));
+
+            services.AddTransient<IAppointmentBusiness, AppointmentBusiness>();
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IAllergyRepository, AllergyRepository>();
