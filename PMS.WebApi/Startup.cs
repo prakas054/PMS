@@ -44,6 +44,8 @@ namespace PMS.WebApi
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PMS.WebApi", Version = "v1" });
@@ -59,6 +61,12 @@ namespace PMS.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PMS.WebApi v1"));
             }
+
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                                          .AllowAnyMethod()
+                                          .AllowAnyHeader());
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
